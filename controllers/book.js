@@ -39,6 +39,11 @@ function getBook(req, res) {
 }
 
 function createBook(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(400).json({ errors: errors.array() });
+    }
+    
     try {
         const newBook = req.body
         saveBook(newBook)
